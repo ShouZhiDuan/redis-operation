@@ -17,19 +17,19 @@ public class LockTest {
 
     static {
         Config config=new Config();
-        config.useSingleServer().setAddress("redis://127.0.0.1:6379");
+        config.useSingleServer().setAddress("redis://192.168.10.21:6379");
         redissonClient= Redisson.create(config);
     }
 
     public static void main(String[] args) throws InterruptedException {
-        RLock rLock=redissonClient.getLock("updateAccount");
-        // 最多等待100秒、上锁10s以后自动解锁
+        RLock rLock = redissonClient.getLock("updateAccount");
+        //100：获锁超时时长
+        //10：锁的有效时长
         if(rLock.tryLock(100,10, TimeUnit.SECONDS)){
             System.out.println("获取锁成功");
         }
         //Thread.sleep(20000);
         rLock.unlock();
-
         redissonClient.shutdown();
     }
 }
