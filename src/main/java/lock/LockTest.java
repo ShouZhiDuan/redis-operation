@@ -16,7 +16,7 @@ public class LockTest {
     private static RedissonClient redissonClient;
 
     static {
-        Config config=new Config();
+        Config config = new Config();
         config.useSingleServer().setAddress("redis://192.168.10.21:6379");
         redissonClient= Redisson.create(config);
     }
